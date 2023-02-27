@@ -1,6 +1,10 @@
 package com.google.samples.propertyanimation
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +57,17 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	private fun rotater() {
+		val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360f, 0f)
+		animator.duration = 1000
+		animator.addListener(object : AnimatorListenerAdapter() {
+			override fun onAnimationStart(animation: Animator) {
+				rotateButton.isEnabled = false
+			}
+			override fun onAnimationEnd(animation: Animator) {
+				rotateButton.isEnabled = true
+			}
+		})
+		animator.start()
 	}
 
 	private fun translater() {
